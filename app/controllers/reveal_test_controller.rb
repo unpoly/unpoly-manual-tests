@@ -1,0 +1,3 @@
+class RevealTestController < ApplicationController
+
+end

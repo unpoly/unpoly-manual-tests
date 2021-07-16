@@ -1,0 +1,3 @@
+class CssTestController < ApplicationController
+
+end

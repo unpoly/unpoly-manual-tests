@@ -1,0 +1,3 @@
+class ScrollTestController < ApplicationController
+
+end

@@ -1,0 +1,3 @@
+class ReplaceTestController < ApplicationController
+
+end
