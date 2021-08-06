@@ -1,56 +1,6 @@
 <div class="example">
 
-  <h1>Unpoly tests</h1>
-
-  <h2>Unit tests</h2>
-
-  <ul>
-    <li>
-      <%= link_to 'Jasmine specs with jQuery 3', '/specs?jquery=3' %>
-    </li>
-    <li>
-      <%= link_to 'Jasmine specs with up-migrate', '/specs?migrate=1' %>
-    </li>
-    <li>Individual modules
-      <ul>
-        <% %w[
-          up.browser
-          up.element
-          up.error
-          up.event
-          up.feedback
-          up.form
-          up.fragment
-          up.layer
-          up.history
-          up.migrate
-          up.link
-          up.log
-          up.modal
-          up.motion
-          up.popup
-          up.protocol
-          up.network
-          up.radio
-          up.rails
-          up.syntax
-          up.tooltip
-          up.util
-          up.viewport
-        ].each do |mod| %>
-          <li><%= link_to mod, "/specs?spec=#{mod}" %></li>
-        <% end %>
-      </ul>
-    </li>
-    <li>
-      <%= link_to 'Jasmine specs with jQuery 2', '/specs?jquery=2' %>
-    </li>
-    <li>
-      <%= link_to 'Jasmine specs with jQuery 1', '/specs?jquery=1' %>
-    </li>
-  </ul>
-
-  <h2>Integration tests</h2>
+  <h1>Manual Unpoly tests</h1>
 
   <ul>
     <li><%= link_to 'Layer', '/css_test/layer' %></li>
