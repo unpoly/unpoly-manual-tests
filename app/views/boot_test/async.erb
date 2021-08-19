@@ -1,0 +1,19 @@
+<% content_for :scripts do %>
+  <%= javascript_include_tag('application', async: true) %>
+<% end %>
+
+<h1>Booting (async scripts)</h1>
+
+<h2>Setup</h2>
+
+<ul>
+  <li>Unpoly has loaded with <code>[async]</code> attribute.</li>
+  <li>No user script was loaded.</li>
+</ul>
+
+<h2>Expectations</h2>
+
+<ul>
+  <li>Unpoly has evaled but <b>not</b>b> booted automatically, since it does not know when user scripts will load.</li>
+  <li>Unpoly will boot after calling <a href="javascript:up.boot()"><code>up.boot()</code></a> explicitly.</li>
+</ul>

@@ -1,0 +1,19 @@
+<% content_for :scripts do %>
+  <%= javascript_include_tag('application', 'up-boot': 'manual') %>
+<% end %>
+
+<h1>Booting (manual because [up-boot] attribute)</h1>
+
+<h2>Setup</h2>
+
+<ul>
+  <li>Unpoly has loaded with a sync script that has an <code>[up-boot=manual]</code> attribute.</li>
+  <li>No user script was loaded.</li>
+</ul>
+
+<h2>Expectations</h2>
+
+<ul>
+  <li>Unpoly has evaled but <b>not</b>b> booted automatically, since the user has explicitly requested so.</li>
+  <li>Unpoly will boot after calling <a href="javascript:up.boot()"><code>up.boot()</code></a> explicitly.</li>
+</ul>
