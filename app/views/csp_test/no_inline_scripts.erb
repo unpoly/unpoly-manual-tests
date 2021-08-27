@@ -1,0 +1,27 @@
+<h1>Content-Security-Policy (no inline scripts)</h1>
+
+<h2>Setup</h2>
+
+<ul>
+  <li>Page was delivered with the CSP: <code><%= response.headers['Content-Security-Policy'] %></code></li>
+  <li>The CSP allows a single <code>onclick</code> handler via <code>script-src-attr 'unsafe-hashes'</code>.</li>
+  <li>For <a href="https://caniuse.com/mdn-http_headers_csp_content-security-policy_script-src-attr">browsers that do not support</a> <code>script-src-attr</code>, all onclick handlers are allowed via <code>script-src 'unsafe-inline'</code>.</li>
+</ul>
+
+<h2>Expectations</h2>
+
+<h3>On browsers that support <code>script-src-attr</code></h3>
+
+<ul>
+  <li>Unpoly boots</li>
+  <li><a href="#" onclick="alert('Disallowed onclick handler')">Disallowed <code>onclick</code> handler</a> fails with an error in the console</li>
+  <li><a href="#" onclick="<%= @allowed_handler %>">Allowed <code>onclick</code> handler</a> opens an alert</li>
+</ul>
+
+<h3>On browsers that <u>don't</u> support <code>script-src-attr</code></h3>
+
+<ul>
+  <li>Unpoly boots</li>
+  <li><a href="#" onclick="alert('Disallowed onclick handler')">Disallowed <code>onclick</code> handler</a> opens an alert</li>
+  <li><a href="#" onclick="<%= @allowed_handler %>">Allowed <code>onclick</code> handler</a> opens an alert</li>
+</ul>
