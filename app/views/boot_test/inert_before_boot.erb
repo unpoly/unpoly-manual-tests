@@ -1,0 +1,45 @@
+<% content_for :scripts do %>
+  <%= javascript_include_tag('application', 'up-boot': 'manual') %>
+<% end %>
+
+<h1>Unpoly is inert before booting</h1>
+
+<h2>Setup</h2>
+
+<ul>
+  <li>Unpoly has loaded, but not booted.</li>
+</ul>
+
+<h2>Expectations</h2>
+
+<h3><code>a[up-follow]</code> is inert</h3>
+
+<p>
+  This link should be a vanilla link and not be followed via Unpoly:
+</p>
+
+<div id="link-target">
+  <a href="inert_before_boot2" up-follow up-target="#link-target" class="btn btn-primary">Link</a>
+</div>
+
+<h3><code>form[up-submit]</code> is inert</h3>
+
+<p>
+  This form should be a vanilla form and not be submitted via Unpoly:
+</p>
+
+<div id="form-target">
+  <form method="get" up-submit up-target="#form-target" action="inert_before_boot2">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<h3><code>input[up-observe]</code> is inert</h3>
+
+<p>
+  This input should not turn the background yellow when typed into:
+</p>
+
+<form method="get" action="#">
+  <input type="text" name="foo" up-observe="document.body.style.background = 'yellow'">
+</form>

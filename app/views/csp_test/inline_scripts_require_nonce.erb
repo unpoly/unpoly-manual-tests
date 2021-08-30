@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <meta name="csp-nonce" content="<%= content_security_policy_nonce %>">
+<% end %>
+
 <h1>Content-Security-Policy (inline scripts require a nonce)</h1>
 
 <h2>Setup</h2>
@@ -14,7 +18,7 @@
   <li>The console does <b>not</b> show <code>"hello from script without nonce"</code>. A CSP violation should be logged instead.</li>
 </ul>
 
-<script nonce="secret">
+<script nonce="<%= content_security_policy_nonce %>">
   console.log("hello from script with nonce")
 </script>
 
@@ -24,16 +28,21 @@
 
 <h2>Eval nonced function</h2>
 
-<script nonce="secret">
-  up.compiler('.eval-nonced-function', function(element) {
+<script nonce="<%= content_security_policy_nonce %>">
+  up.protocol.config.nonceableAttributes.push('data-code')
+
+  up.compiler('#eval-nonced-function', function(element) {
+    let callback = up.NonceableCallback.fromString(element.dataset.code)
+    element.textContent = 'embedded nonce: ' + callback.nonce
+
     element.addEventListener('click', function() {
-      let code = element.dataset.code
-      console.log("Raw code is %o", code)
-      let fn = up.util.safeFunction(code)
-      let value = fn()
+      let value = callback.toFunction()()
       console.log("Return value is %o", value)
+      up.reload(element)
     })
   })
 </script>
 
-<div class="btn btn-primary eval-nonced-function" data-code="nonce-secret console.log('attr evaled'); return 'return value from attr'">click me to eval with code-embedded nonce</div>
+<div id="eval-nonced-function" class="btn btn-primary" data-code="<%= up.safe_callback("console.log('attr evaled'); return 'return value from attr'")%>">
+  click me to eval with code-embedded nonce
+</div>

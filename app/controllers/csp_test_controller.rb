@@ -8,7 +8,27 @@ class CspTestController < ApplicationController
   end
 
   def inline_scripts_require_nonce
-    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'nonce-secret'"
+    @content_security_policy_nonce = SecureRandom.base64(16)
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'nonce-#{content_security_policy_nonce}'"
   end
+
+  private
+
+  helper_method def content_security_policy_nonce
+    @content_security_policy_nonce || 'secret'
+  end
+
+  # def enable_nonce(&action)
+  #   @old_content_security_polic_nonce_generator = Rails.configuration.content_security_policy_nonce_generator
+  #   Rails.configuration.content_security_policy_nonce_generator = -> request { 'my-secret' }
+  #
+  #   # @old_content_security_polic_nonce_directives = Rails.configuration.content_security_policy_nonce_directives
+  #   # Rails.configuration.content_security_policy_nonce_directives = %w[script-src]
+  #
+  #   action.call
+  # ensure
+  #   Rails.configuration.content_security_policy_nonce_generator = @old_content_security_polic_nonce_generator
+  #   # Rails.configuration.content_security_policy_nonce_directives = @old_content_security_policy_nonce_directives
+  # end
 
 end
