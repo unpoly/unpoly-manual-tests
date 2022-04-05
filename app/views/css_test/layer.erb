@@ -1,7 +1,7 @@
 <script>
   var u = up.util;
   up.compiler('.clamped-open', function(link) {
-    link.addEventListener('click', function(event) {
+    link.addEventListener('up:click', function(event) {
       event.preventDefault();
       u.task(function() {
         u.task(function() {
@@ -9,8 +9,9 @@
             u.task(function() {
               u.task(function() {
                 u.task(function() {
-                  up.modal.follow(link, {
-                    duration: 1000
+                  up.follow(link, {
+                    duration: 1000,
+                    layer: 'new modal',
                   });
                 });
               });
@@ -50,18 +51,19 @@
   <div class="example">
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new modal">Modal</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new modal" up-instant>Modal (instant)</a>
-    <a class="button clamped-open" href="/css_test/layer">Modal (clamped)</a>
+    <a class="btn btn-secondary clamped-open" href="/css_test/layer">Modal (clamped)</a>
+    <a class="btn btn-primary" href="/css_test/modal_contents_short" up-layer="new modal" up-position="left">Modal (short content)</a>
   </div>
 
   <div class="example">
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new modal" up-size="small">Modal (small)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new modal" up-size="medium">Modal (medium)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new modal" up-size="large">Modal (large)</a>
-    <a class="btn btn-primary" href="/css_test/layer" up-layer="new modal" up-size="auto">Modal (auto)</a>
+    <a class="btn btn-primary" href="/css_test/modal_contents_short" up-layer="new modal" up-size="auto">Modal (auto)</a>
   </div>
 
   <div class="example">
-    <a class="btn btn-primary" href="/css_test/modal_contents_wide" up-layer="new modal">Modal (wide contents)</a>
+    <a class="btn btn-primary" href="/css_test/modal_content_wide" up-layer="new modal">Modal (wide contents</a>
   </div>
 
   <div class="example">
@@ -72,28 +74,29 @@
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-position="left">Drawer (left)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-position="right">Drawer (right)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-position="right" up-instant>Drawer (instant)</a>
+    <a class="btn btn-primary" href="/css_test/modal_contents_short" up-layer="new drawer" up-position="left">Drawer (short content)</a>
   </div>
-  
+
   <div class="example">
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-size="small">Drawer (small)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-size="medium">Drawer (medium)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-size="large">Drawer (large)</a>
-    <a class="btn btn-primary" href="/css_test/layer" up-layer="new drawer" up-size="auto">Drawer (auto)</a>
+    <a class="btn btn-primary" href="/css_test/modal_contents_short" up-layer="new drawer" up-size="auto">Drawer (auto)</a>
   </div>
-  
+
   <div class="example">
     <a class="btn btn-primary" href="/css_test/popup_contents" up-layer="new popup">popup</a>
     <a class="btn btn-primary" href="/css_test/popup_contents" up-layer="new popup" up-instant>popup (instant)</a>
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new popup" up-instant up-size="large">popup (nested)</a>
     <a class="btn btn-primary" up-layer="new popup" up-content="Inline popup content" href="#">popup (inline)</a>
   </div>
-  
+
 
   <div class="example">
     <a class="btn btn-primary" href="/css_test/popup_contents" up-layer="new popup" up-size="small">Popup (small)</a>
     <a class="btn btn-primary" href="/css_test/popup_contents" up-layer="new popup" up-size="medium">Popup (medium)</a>
     <a class="btn btn-primary" href="/css_test/popup_contents" up-layer="new popup" up-size="large">Popup (large)</a>
-    <a class="btn btn-primary" href="/css_test/popup_contents" up-layer="new popup" up-size="auto">Popup (auto)</a>
+    <a class="btn btn-primary" href="/css_test/modal_contents_short" up-layer="new popup" up-size="auto">Popup (auto)</a>
   </div>
 
   <div class="example">
