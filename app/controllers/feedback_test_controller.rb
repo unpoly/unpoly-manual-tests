@@ -1,0 +1,3 @@
+class FeedbackTestController < ApplicationController
+
+end

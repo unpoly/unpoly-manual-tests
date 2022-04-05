@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   def log_content_type
     Rails.logger.info("*** Got Content-Type: " + request.media_type.inspect)
+    # sleep 1
   end
 
 end

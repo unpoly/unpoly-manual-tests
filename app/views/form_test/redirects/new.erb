@@ -2,7 +2,7 @@
 
   <h2>Redirecting form</h2>
 
-  <%= form_tag "/form_test/redirect", method: :post, 'up-target' => '.result' do %>
+  <%= form_tag "/form_test/redirect#hash", method: :post do %>
 
     <p>
       <input type="text" name="text-param" value="text-value" />

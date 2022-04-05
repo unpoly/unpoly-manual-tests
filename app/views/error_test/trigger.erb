@@ -14,6 +14,14 @@
     <a href="/error_test/unexpected_response?foo=bar" up-target=".link-target" up-fail-target=".link-target">Link with query params</a>
   </p>
 
+  <p>
+    <a href="/error_test/unexpected_response" up-follow up-fallback="false">Link with no targets and <code>[up-fallback=false]</code></a>
+  </p>
+
+  <p>
+    <a href="/error_test/unexpected_response?status=500" up-follow up-fallback="false">Link with no targets, <code>[up-fallback=false]</code> and server sends error code</a>
+  </p>
+
   <div class="area link-target">
     .link-target
   </div>
