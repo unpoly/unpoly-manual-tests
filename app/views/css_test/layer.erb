@@ -83,6 +83,7 @@
 
   <div class="example">
     <a class="btn btn-primary" href="/css_test/layer" up-layer="new cover" up-target=".contents">Cover</a>
+    <a class="btn btn-primary" href="/css_test/modal_contents_short" up-layer="new cover" up-target=".contents">Cover (short content)</a>
   </div>
 
   <div class="example">
@@ -130,7 +131,7 @@
   </div>
 
   <div class="example">
-    <div id="viewport-without-position" up-viewport style="height: 125px; width: 500px; overflow-y: scroll; background-color: rgba(0,0,0,0.2)">
+    <div id="viewport-without-position" up-viewport style="height: 125px; max-width: 500px; overflow-y: scroll; background-color: rgba(0,0,0,0.2)">
       <div class="spacer"></div>
       <a class="btn btn-primary" href="/css_test/popup_contents?8" up-layer="new popup" up-position="bottom">Popup within a viewport that has no position</a>
       <div class="spacer"></div>
@@ -138,7 +139,7 @@
   </div>
 
   <div class="example">
-    <div id="viewport-with-position" up-viewport style="height: 125px; width: 500px; overflow-y: scroll; background-color: rgba(0,0,0,0.2); position: relative">
+    <div id="viewport-with-position" up-viewport style="height: 125px; width: max-500px; overflow-y: scroll; background-color: rgba(0,0,0,0.2); position: relative">
       <div class="spacer"></div>
       <a class="btn btn-primary" href="/css_test/popup_contents?8" up-layer="new popup" up-position="bottom">Popup within a viewport that has position</a>
       <div class="spacer"></div>
