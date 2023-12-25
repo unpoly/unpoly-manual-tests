@@ -1,0 +1,27 @@
+<% content_for :head do %>
+  <meta name="csp-nonce" content="<%= content_security_policy_nonce %>">
+<% end %>
+
+<h1>Content-Security-Policy-Report-Only</h1>
+
+<h2>Setup</h2>
+
+<ul>
+  <li>Page was delivered with the CSP: <code><%= response.headers['Content-Security-Policy'] %></code></li>
+</ul>
+
+<h2>Expectations</h2>
+
+<ul>
+  <li>Unpoly boots</li>
+  <li>The console shows <code>"hello from script with nonce"</code>.</li>
+  <li>Clicking the link below will log <code>"hello from nonced callbacks"</code>, but no CSP violations or DevTools issues are reported</li>
+</ul>
+
+<script nonce="<%= content_security_policy_nonce %>">
+  console.log("hello from script with nonce")
+</script>
+
+<p>
+  <a href="/csp_test/report_only" up-target=":origin" class="btn btn-primary" up-on-loaded="<%= up.safe_callback('console.log("hello from nonced callback")') %>">Click me</a>
+</p>

@@ -1,0 +1,3 @@
+class KeptVideoTestController < ApplicationController
+
+end

@@ -12,6 +12,11 @@ class CspTestController < ApplicationController
     response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'nonce-#{content_security_policy_nonce}'"
   end
 
+  def report_only
+    @content_security_policy_nonce = SecureRandom.base64(16)
+    response.headers['Content-Security-Policy-Report-Only'] = "default-src 'self'; script-src 'self' 'nonce-#{content_security_policy_nonce}'"
+  end
+
   private
 
   helper_method def content_security_policy_nonce

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get 'csp_test/:action', controller: 'csp_test'
   get 'feedback_test/:action', controller: 'feedback_test'
   get 'poll_test/:action', controller: 'poll_test'
+  get 'kept_video_test/:action', controller: 'kept_video_test'
+  get 'swapped_video_test/:action', controller: 'swapped_video_test'
 
   namespace :form_test do
     resource :basic, only: [:new, :create]

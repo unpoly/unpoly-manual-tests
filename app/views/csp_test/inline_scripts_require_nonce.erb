@@ -29,7 +29,7 @@
 <h2>Eval nonced function</h2>
 
 <script nonce="<%= content_security_policy_nonce %>">
-  up.protocol.config.nonceableAttributes.push('data-code')
+  up.script.config.nonceableAttributes.push('data-code')
 
   up.compiler('#eval-nonced-function', function(element) {
     let callback = up.NonceableCallback.fromString(element.dataset.code)
