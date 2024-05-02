@@ -1,0 +1,28 @@
+<%
+  @page = params[:page].present? ? params[:page].to_i : 1
+  @last_page = 10
+  @page_size = 10
+  @first_index = (@page - 1) * @page_size
+  @last_index = @first_index + @page_size - 1
+%>
+
+<div id="pages">
+  <% (@first_index..@last_index).each do |index| %>
+    <div class="card my-3">
+      <div class="card-body">
+        <h5 class="card-title">Item #<%= index %></h5>
+        <p class="card-text"><%= Faker::Lorem.sentences(number: 4).join(' ') %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @page < @last_page %>
+  <a id="next-page" href="/reveal_test/infinite_scrolling?page=<%= @page +1 %>" up-defer="reveal" up-target="#pages:after, #next-page">
+    load next page
+  </a>
+<% else %>
+  <div id="next-page">
+    You have reached the end.
+  </div>
+<% end %>

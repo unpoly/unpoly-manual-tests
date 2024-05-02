@@ -21,3 +21,5 @@ gem 'sprockets', '~> 3.0'
 
 gem 'byebug'
 gem 'web-console'
+gem 'faker'
+

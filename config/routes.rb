@@ -30,6 +30,9 @@ Rails.application.routes.draw do
         get :target
       end
     end
+
+
+    resource :autosubmission, only: [:new, :create]
   end
 
 end

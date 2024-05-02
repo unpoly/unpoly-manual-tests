@@ -1,0 +1,11 @@
+<h2>Form autosubmitting to itself</h2>
+
+<%= form_tag "/form_test/autosubmission", method: :post, id: 'form', 'up-target' => '#form', 'up-autosubmit': 'true' do %>
+
+  <div class="form-group">
+    <label for="text-param">input[type=text]</label>
+    <input type="text" name="text-param" value="text-value" class="form-control" id="text-param" required>
+  </div>
+
+<% end %>
+

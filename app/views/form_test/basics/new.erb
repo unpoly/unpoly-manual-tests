@@ -3,7 +3,7 @@
 
     <h2>Basic form</h2>
 
-    <%= form_tag "/form_test/basic", method: :post, 'up-target' => '.result' do %>
+    <%= form_tag "/form_test/basic", method: :post, 'up-target' => '.result', 'up-disable': 'button' do %>
 
       <div class="form-group">
         <label for="text-param">input[type=text]</label>

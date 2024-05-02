@@ -5,6 +5,7 @@ module FormTest
     end
 
     def create
+      sleep 1
       render 'form_test/submission_result'
     end
 
