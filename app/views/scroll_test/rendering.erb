@@ -1,0 +1,43 @@
+<div class="example">
+
+  <p>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target" up-scroll="target" up-scroll-behavior="instant">Update #target with instant behavior</a>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target" up-scroll="target" up-scroll-behavior="smooth">Update #target with smooth behavior</a>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target" up-scroll="target" up-scroll-behavior="auto">Update #target with auto behavior</a>
+  </p>
+
+  <p>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target" up-scroll="target" up-transition="move-left" up-duration="3000" up-scroll-behavior="instant">Morph #target with instant behavior</a>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target" up-scroll="target" up-transition="move-left" up-duration="3000" up-scroll-behavior="smooth">Morph #target with smooth behavior</a>
+  </p>
+
+  <p>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target:after" up-scroll="target" up-scroll-behavior="instant">Append to #target with instant behavior</a>
+    <a class="btn btn-primary" href="/scroll_test/target" up-target="#target:after" up-scroll="target" up-scroll-behavior="smooth">Append to #target with smooth behavior</a>
+  </p>
+
+  <h2>Long page</h2>
+
+  <div style="height: 2000px; background: linear-gradient(to bottom, red 0%, blue 100%)" id="content">
+    Content height:
+    <a href="#" onclick="document.getElementById('content').style.height = '100px'; return false">100px</a>
+    <a href="#" onclick="document.getElementById('content').style.height = '300px'; return false">300px</a>
+    <a href="#" onclick="document.getElementById('content').style.height = '600px'; return false">600px</a>
+    <a href="#" onclick="document.getElementById('content').style.height = '1000px'; return false">1000px</a>
+    <a href="#" onclick="document.getElementById('content').style.height = '3000px'; return false">3000px</a>
+    <a href="#" onclick="document.getElementById('content').style.height = '10000px'; return false">10000px</a>
+    <a href="#" onclick="document.getElementById('content').style.height = '90000px'; return false">90000px</a>
+  </div>
+
+  <div id="target">
+    <div class="target--child">
+      Initial target content
+    </div>
+  </div>
+
+  <div style="height: 2000px; background: linear-gradient(to bottom, yellow 0%, green 100%)" id="content">
+    After
+  </div>
+
+
+</div>
