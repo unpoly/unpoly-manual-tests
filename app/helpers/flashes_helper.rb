@@ -5,7 +5,8 @@ module FlashesHelper
     flash.map do |type, message|
       html << content_tag(:div, message, class: "#{bootstrap_flash_classes(type)} mb-3", role: 'alert')
     end
-    html
+
+    content_tag(:div, html, id: 'flashes', 'up-flashes': '')
   end
 
   def bootstrap_flash_type(type)
