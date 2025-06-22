@@ -2,8 +2,9 @@
 #= require unpoly
 #= require unpoly-migrate
 #= require unpoly-bootstrap4
-#= require ./detect_cache
 #= require jquery_ujs
+
+up.log.enable()
 
 up.compiler '.content', ->
   span = document.createElement('span')
