@@ -6,6 +6,7 @@ module FormTest
 
     def create
       if up.validate?
+        sleep 0.75
         render 'new'
       else
         render 'form_test/submission_result'
