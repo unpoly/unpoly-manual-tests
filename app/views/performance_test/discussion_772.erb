@@ -1,0 +1,3842 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='csrf-token' content='3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb'>
+
+    <title>Document</title>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= yield(:scripts).presence || javascript_include_tag('application') %>
+</head>
+<body>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-5" id="notifications" up-flashes=""></div>
+
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom shadow-sm">
+        <div class="container">
+            <div class="navbar-brand d-flex align-items-center gap-1">
+                <svg class="icon icon-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                    <path d="M5.75 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM7.25 8.25A.75.75 0 0 1 8 7.5h2.25a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75ZM5.75 9.5a.75.75 0 0 0 0 1.5H8a.75.75 0 0 0 0-1.5H5.75Z"/>
+                    <path fill-rule="evenodd" d="M4.75 1a.75.75 0 0 0-.75.75V3a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2V1.75a.75.75 0 0 0-1.5 0V3h-5V1.75A.75.75 0 0 0 4.75 1ZM3.5 7a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v4.5a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1V7Z" clip-rule="evenodd"/>
+                </svg>                <b>Shifter.kz</b>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primary_navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="primary_navbar">
+                <ul class="nav nav-pills ms-auto">
+                    <li class="nav-item">
+                        <a href="/timesheets"
+                           class="nav-link active"
+                           up-alias="/timesheets/*"
+                        >
+                            Табеля
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/locations"
+                           class="nav-link"
+                           up-alias="/locations/*"
+                        >
+                            Локации
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/employments"
+                           class="nav-link"
+                           up-alias="/employments/*"
+                        >
+                            Сотрудники
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/roles"
+                           class="nav-link"
+                           up-alias="/roles/*"
+                        >
+                            Роли
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <b>test@example.com</b>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/">Профиль</a>
+                            </li>
+                            <li>
+                                <button class="dropdown-item" form="logout_form">Выйти</button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<form id="logout_form" action="/logout"
+      method="post"
+      hidden
+      up-submit="false"
+>
+    <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off"></form>
+
+<main up-main="modal popup" class="container timesheet-calendar">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/timesheets">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path d="M5.75 7.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM7.25 8.25A.75.75 0 0 1 8 7.5h2.25a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75ZM5.75 9.5a.75.75 0 0 0 0 1.5H8a.75.75 0 0 0 0-1.5H5.75Z"/>
+                        <path fill-rule="evenodd" d="M4.75 1a.75.75 0 0 0-.75.75V3a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2V1.75a.75.75 0 0 0-1.5 0V3h-5V1.75A.75.75 0 0 0 4.75 1ZM3.5 7a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v4.5a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1V7Z" clip-rule="evenodd"/>
+                    </svg>Табеля
+                </a>
+            </li>
+
+            <li class="breadcrumb-item">
+                <a href="/timesheets/1">
+                    01.08.2025 – 31.08.2025
+                </a>
+            </li>
+        </ol>
+    </nav>
+
+    <section>
+        <header class="mb-3">
+            <hgroup>
+                <h2>Календарь табеля animi eveniet ipsa</h2>
+            </hgroup>
+        </header>
+
+        <table class="table table-striped align-middle">
+            <tr>
+                <td>2025-08-01</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-01"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-01"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-02</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-02"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-02"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-03</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-03"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-03"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-04</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-04"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-04"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-05</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-05"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-05"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-06</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-06"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-06"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-07</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-07"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-07"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-08</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-08"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-08"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-09</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-09"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-09"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-10</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-10"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-10"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-11</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-11"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-11"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-12</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-12"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-12"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-13</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-13"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-13"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-14</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-14"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-14"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-15</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-15"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-15"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-16</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-16"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-16"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-17</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-17"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-17"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-18</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-18"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-18"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-19</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-19"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-19"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-20</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-20"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-20"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-21</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-21"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-21"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-22</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-22"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-22"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-23</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-23"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-23"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-24</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-24"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-24"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-25</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-25"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-25"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-26</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-26"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-26"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-27</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-27"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-27"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-28</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-28"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-28"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-29</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-29"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-29"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-30</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-30"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-30"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+            <tr>
+                <td>2025-08-31</td>
+
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_1_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_1_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_2_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_2_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_3_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_3_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_4_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_4_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_21_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_21_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Официант
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_22_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_22_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Бариста
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input"
+                               id="timesheet_calendar_shift_23_2025-08-31"
+                        >
+                        <label for="timesheet_calendar_shift_23_2025-08-31"
+                               class="form-check-label"
+                        >
+                            Тех персонал
+                        </label>
+                    </div>
+
+                    <form method="post">
+                        <input type="hidden" name="_token" value="3XJC0u84zeryCeazB6R9g0KowzqCPrH9HjDS0UXb" autocomplete="off">                                <input type="hidden" name="_method" value="PUT">                            </form>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </section>
+</main>
+
+<footer>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/content/offer"
+                           up-layer="new"
+                           up-size="large"
+                           up-history="false"
+                           class="nav-link"
+                        >
+                            Публичная оферта
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/content/privacy"
+                           up-layer="new"
+                           up-size="large"
+                           up-history="false"
+                           class="nav-link"
+                        >
+                            Политика конфиденциальности
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/content/contacts"
+                           up-layer="new"
+                           class="nav-link"
+                        >
+                            Контакты
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</footer>
+
+<script type="text/x-handlebars-template" id="selected_employment_template">
+    <div class="shift-employment">
+        <fieldset selected-employment>
+            <legend>Назначенный сотрудник:</legend>
+
+            <b>{{ name }}</b>
+
+            <input type="hidden" name="employment_id" value="{{ id }}">
+        </fieldset>
+    </div>
+</script>
+</body>
+</html>

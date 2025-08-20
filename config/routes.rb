@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'poll_test/:action', controller: 'poll_test'
   get 'kept_video_test/:action', controller: 'kept_video_test'
   get 'swapped_video_test/:action', controller: 'swapped_video_test'
+  get 'performance_test/:action', controller: 'performance_test'
 
   namespace :form_test do
     resource :basic, only: [:new, :create]
