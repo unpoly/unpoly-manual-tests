@@ -1,4 +1,7 @@
+<% content_for :html_attrs, 'up-boot="manual"'.html_safe %>
+
 <% content_for :scripts do %>
+  <%# Set the legacy <script up-boot="manual"> attribute to test unpoly-migrate printing a migration warning %>
   <%= javascript_include_tag('application', 'up-boot': 'manual') %>
 <% end %>
 
