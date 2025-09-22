@@ -4,4 +4,7 @@ class PerformanceTestController < ApplicationController
     render layout: false
   end
 
+  def discussion_775
+  end
+
 end

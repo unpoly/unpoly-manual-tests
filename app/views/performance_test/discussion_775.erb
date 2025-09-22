@@ -1,0 +1,31 @@
+<form method="POST" action="/delete-user" class="up-can-clean">
+  <div class="space-y-1">
+    <label
+      class="block text-sm font-medium text-ui-text"
+      for="ef2cffdb-c283-4a0d-881a-f4a8a1f09148"
+      >Username to Delete</label
+    ><input
+      type="text"
+      class="px-4 py-3 border bg-ui-background focus:outline-none focus:ring-2 rounded-md placeholder-gray-400 border-ui-neutral focus:border-ui-primary focus:ring-ui-primary component-input component-text-input"
+      id="ef2cffdb-c283-4a0d-881a-f4a8a1f09148"
+      name="ef2cffdb-c283-4a0d-881a-f4a8a1f09148"
+      placeholder="Enter username to confirm"
+      required=""
+    />
+  </div>
+  <button
+    type="button"
+    class="inline-flex items-center justify-center gap-x-2 font-medium focus:outline-none px-2.5 py-1 text-base rounded-md cursor-pointer border bg-ui-background border-ui-border text-ui-text hover:border-ui-border hover:shadow-md active:bg-ui-background-secondary active:shadow-inner"
+  >
+    <span class="text-no-wrap truncate">Update Profile</span></button
+  ><button
+    type="submit"
+    class="inline-flex items-center justify-center gap-x-2 font-medium focus:outline-none px-2.5 py-1 text-base rounded-md cursor-pointer bg-ui-danger text-ui-background hover:brightness-110 active:brightness-90"
+    up-content='&lt;div class="confirmation-modal"&gt;&lt;div class="modal-header px-6 py-6 flex items-center justify-between border-b border-ui-border-subtle bg-ui-background"&gt;&lt;h3 class="text-lg font-semibold text-ui-text"&gt;Confirm Account Deletion&lt;/h3&gt;&lt;button type="button" class="text-ui-text-muted hover:bg-ui-background-secondary transition-colors p-1 rounded" up-dismiss aria-label="Close"&gt;&lt;svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class="modal-body px-6 py-6 bg-ui-background"&gt;&lt;p class="text-ui-text-secondary"&gt;Are you sure you want to permanently delete this user account? This action cannot be undone and will remove all associated data.&lt;/p&gt;&lt;/div&gt;&lt;div class="modal-footer px-6 py-6 bg-ui-background-secondary flex justify-end gap-3 rounded-b-lg"&gt;&lt;button type="button" class="px-5 py-2.5 border border-ui-border bg-ui-background hover:bg-ui-background-secondary text-ui-text rounded transition-colors" up-dismiss&gt;Cancel&lt;/button&gt;&lt;button type="button" class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded transition-colors" up-follow up-href="/delete-user" up-target="main" up-layer="parent" up-accept&gt;Yes, Delete Account&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;'
+    up-follow=""
+    up-layer="new modal"
+    up-on-accepted="up.submit({ target: 'main' });"
+  >
+    <span class="text-no-wrap truncate">Delete Account</span>
+  </button>
+</form>
