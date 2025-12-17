@@ -33,6 +33,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_type (2.5.1)
+      activerecord (>= 3.2)
     activejob (5.2.6)
       activesupport (= 5.2.6)
       globalid (>= 0.3.6)
@@ -195,6 +197,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_type
   bootsnap
   bootstrap (< 5)
   bower-rails

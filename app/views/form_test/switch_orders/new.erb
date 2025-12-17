@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col">
+
+    <h2 class="mb-3">Switch before validate</h2>
+
+    <%= form_for @order, url: form_test_switch_order_path, as: :order do |form| %>
+
+      <div class="form-group form-check">
+        <%= form.check_box :extra_bacon, class: 'form-check-input', 'up-switch': '.bacon-strips-group', 'up-validate': '.bacon-total-group' %>
+        <%= form.label :extra_bacon, class: 'form-check-label' %>
+      </div>
+
+      <div class="form-group bacon-strips-group" up-disable-for=":unchecked">
+        <%= form.label :bacon_strips, class: 'form-label' %>
+        <%= form.number_field :bacon_strips, class: 'form-control', 'up-validate': '.bacon-total-group', 'up-watch-event': 'input' %>
+      </div>
+
+      <div class="form-group bacon-total-group">
+        <%= form.label :bacon_total, class: 'form-label' %>
+        <%= form.text_field :bacon_total, class: 'form-control', disabled: true %>
+      </div>
+
+    <% end %>
+
+    <div id="order-params" up-hungry>
+      <h4>Last params</h4>
+      <pre><%= order_params.to_h.inspect %></pre>
+    </div>
+
+  </div>
+
+</div>

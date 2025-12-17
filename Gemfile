@@ -14,6 +14,7 @@ gem 'unpoly-rails', path: '../unpoly-rails'
 gem 'bower-rails'
 gem 'bootstrap', '<5'
 gem 'rake'
+gem 'active_type'
 
 gem 'tilt'
 gem 'sprockets-rails'

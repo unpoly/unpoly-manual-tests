@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resource :basic, only: [:new, :create]
     resource :upload, only: [:new, :create]
     resource :validation, only: [:new, :create]
+    resource :switch_order, only: [:new, :create]
     resource :redirect, only: [:new, :create] do
       member do
         get :target
