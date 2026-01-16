@@ -1,0 +1,30 @@
+<script>
+  function showFocusInfo() {
+    let container = document.getElementById('focus-info')
+    let focusedElement = document.activeElement
+    container.innerText = `Focus: ${up.util.sprintf("%o", focusedElement)}`
+  }
+
+  setInterval(showFocusInfo, 500)
+</script>
+
+<div class="example">
+
+  <h2>Revealing the initial hash</h2>
+
+  <p style="background-color: yellow; height: 7000px;">
+    Element before #hash
+  </p>
+
+  <p style="background-color: blue; height: 7000px;" id="hash">
+    Element with #hash
+  </p>
+
+  <p style="background-color: yellow; height: 7000px;">
+    Element after #hash
+  </p>
+
+</div>
+
+<div id="focus-info" style="background-color: black; color: white; position: fixed; bottom: 0; right: 0; padding: 0.5em;">
+</div>
